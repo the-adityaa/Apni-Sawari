@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Apni Sawari</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-top"></div>
+    <a href="#" class="logo">Apni Sawari🚘</a>
+    <nav class="nav" aria-label="Main navigation">
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#premium-cars">Premium Cars</a></li>
+        <li><a href="#normal-cars">Normal Cars</a></li>
+        <li><a href="#premium-bikes">Premium Bikes</a></li>
+        <li><a href="#normal-bikes">Normal Bikes</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-buttons">
+      <button id="themeToggle" class="theme-toggle" aria-pressed="false" aria-label="Toggle Dark Mode">Dark Mode</button>
+      <button id="loginBtnHeader" class="theme-toggle" style="margin-left: 10px;">
+        👤 Login
+      </button>
+      </div>
+    </nav>
+  </header>
+  
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <h1>Your Perfect Ride Awaits</h1>
+        <p>Premium and Normal cars and bikes for rent at unbeatable prices</p>
+      </div>
+    </section>
+    
+    <section class="main-content" aria-labelledby="vehicles-title">
+      <div class="container">
+        <div class="form-group">
+          <label for="city-select"><h2> 📍 Select your city :</h2></label>
+          <select id="city-select" name="city">
+            <option value=""> Choose a City </option>
+            <option value="delhi">Delhi</option>
+            <option value="mumbai">Mumbai</option>
+            <option value="bangalore">Bangalore</option>
+            <option value="hyderabad">Hyderabad</option>
+            <option value="pune">Pune</option>
+          </select>
+        </div>
+        
+        <section id="premium-cars" aria-labelledby="premium-cars-title">
+          <h2 class="section-title" id="premium-cars-title">🏎️ Premium Cars</h2>
+          <div class="vehicles-grid" id="premium-cars-grid"></div>
+        </section>
+        
+        <section id="normal-cars" aria-labelledby="normal-cars-title">
+          <h2 class="section-title" id="normal-cars-title">🚗 Normal Cars</h2>
+          <div class="vehicles-grid" id="normal-cars-grid"></div>
+        </section>
+        
+        <section id="premium-bikes" aria-labelledby="premium-bikes-title">
+          <h2 class="section-title" id="premium-bikes-title">🏍️ Premium Bikes</h2>
+          <div class="vehicles-grid" id="premium-bikes-grid"></div>
+        </section>
+        
+        <section id="normal-bikes" aria-labelledby="normal-bikes-title">
+          <h2 class="section-title" id="normal-bikes-title">🛵 Normal Bikes</h2>
+          <div class="vehicles-grid" id="normal-bikes-grid"></div>
+        </section>
+        
+        <div id="confirmation-message" class="confirmation" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Booking Modal -->
+  <div id="bookingModal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-content" role="document">
+      <button class="close" aria-label="Close modal">&times;</button>
+      
+      <h2 id="modal-title">Book Your Ride</h2>
+      <div class="form-group">
+        <label for="customer-name">Your Name:</label>
+        <input type="text" id="customer-name" placeholder="Enter your full name" required />
+      </div>
+      <div class="form-group">
+        <label for="contact-number">Contact Number</label>
+        <input type="tel" id="contact-number" pattern="[0-9]{10}" placeholder="Enter 10-digit number" required>
+      </div>
+      <div class="form-group">
+        <label for="rent-from">From Date:</label>
+        <input type="date" id="rent-from" required />
+      </div>
+      <div class="form-group">
+        <label for="rent-to">To Date:</label>
+        <input type="date" id="rent-to" required />
+      </div>
+      <div class="form-group">
+        <p><strong>Vehicle:</strong> <span id="selected-vehicle"></span></p>
+        <p><strong>Price per day:</strong> ₹<span id="price-per-day"></span></p>
+        <p><strong>Total Amount:</strong> ₹<span id="total-amount">0</span></p>
+      </div>
+      
+      <div class="modal-buttons" style="display:flex;gap:12px;margin-top:12px;">
+        <button id="confirmBtn" class="confirm-btn">Confirm Booking</button>
+        <button id="cancelBtn" class="cancel-btn">Cancel Booking</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="login-title">
+    <div class="modal-content" role="document">
+      <button class="close" onclick="closeLoginModal()" aria-label="Close modal">&times;</button>
+      
+      <h2 id="login-title">🔐 Login</h2>
+      
+      <div class="form-group">
+        <label for="login-type">Login As:</label>
+        <select id="login-type" onchange="toggleLoginFields()">
+          <option value="user">👤 User</option>
+          <option value="admin">🔧 Admin</option>
+        </select>
+      </div>
+      
+      <div id="user-fields">
+        <div class="form-group">
+          <label for="user-phone">Phone Number:</label>
+          <input type="tel" id="user-phone" placeholder="Enter 10-digit number" pattern="[0-9]{10}" required />
+        </div>
+      </div>
+      
+      <div id="admin-fields" style="display: none;">
+        <div class="form-group">
+          <label for="admin-username">Username:</label>
+          <input type="text" id="admin-username" placeholder="Enter username" />
+        </div>
+        <div class="form-group">
+          <label for="admin-password">Password:</label>
+          <input type="password" id="admin-password" placeholder="Enter password" />
+        </div>
+      </div>
+      
+      <div class="modal-buttons" style="display:flex;gap:12px;margin-top:12px;">
+        <button id="loginBtn" class="confirm-btn">Login</button>
+        <button onclick="closeLoginModal()" class="cancel-btn">Cancel</button>
+      </div>
+      
+      <p id="register-link" style="text-align: center; margin-top: 15px;">
+        New user? <a href="#" onclick="showRegistration()" style="color: var(--link-color);">Register here</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Registration Modal -->
+  <div id="registerModal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="register-title">
+    <div class="modal-content" role="document">
+      <button class="close" onclick="closeRegisterModal()" aria-label="Close modal">&times;</button>
+      
+      <h2 id="register-title">👤 User Registration</h2>
+      
+      <div class="form-group">
+        <label for="reg-name">Full Name:</label>
+        <input type="text" id="reg-name" placeholder="Enter your full name" required />
+      </div>
+      <div class="form-group">
+        <label for="reg-phone">Phone Number:</label>
+        <input type="tel" id="reg-phone" placeholder="Enter 10-digit number" pattern="[0-9]{10}" required />
+      </div>
+      <div class="form-group">
+        <label for="reg-email">Email (Optional):</label>
+        <input type="email" id="reg-email" placeholder="Enter your email" />
+      </div>
+      
+      <div class="modal-buttons" style="display:flex;gap:12px;margin-top:12px;">
+        <button id="registerBtn" class="confirm-btn">Register</button>
+        <button onclick="closeRegisterModal()" class="cancel-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+  
+  <div id="overlay" class="overlay hidden" aria-hidden="true"></div>
+  
+  <footer class="footer" id="contact">
+    <div class="container">
+      <p>Email Us : apnisawari123@gmail.com</p>
+      <p>Follow us on <img src="insta.png" height="17px" alt="Instagram icon"> : @apni_sawari123</p>
+      <p>© 2025 Apni Sawari. All rights reserved. | Your trusted rental partner</p>
+    </div>
+  </footer>
+
+  <script src="auth.js"></script>
+  <script src="vehicles.js"></script>
+  <script src="admin.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

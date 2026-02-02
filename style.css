@@ -1,0 +1,666 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Light Mode Variables (Default) --- */
+:root {
+  --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --text-color: #333;
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --link-color: #667eea;
+  --navlink-color: #333;
+  --navlink-hover: #667eea;
+  --card-bg: rgb(255, 255, 255);
+  --card-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+  --btn-bg: linear-gradient(45deg, #667eea, #764ba2);
+  --btn-hover-shadow: rgba(102, 126, 234, 0.4);
+  --modal-bg: white;
+  --modal-shadow: rgba(0, 0, 0, 0.3);
+  --confirmation-bg: linear-gradient(45deg, #4CAF50, #45a049);
+  --confirmation-shadow: rgba(76, 175, 80, 0.3);
+}
+
+/* --- Dark Mode Variables --- */
+[data-theme="dark"] {
+  --bg-gradient: linear-gradient(135deg, #1f1f1f 0%, #3a3a3a 100%);
+  --text-color: #eee;
+  --header-bg: rgba(30, 30, 30, 0.85);
+  --link-color: #88aaff;
+  --navlink-color: #ddd;
+  --navlink-hover: #88aaff;
+  --card-bg: #242424;
+  --card-shadow: 0 1px 20px rgba(16, 121, 206, 0.7);
+  --btn-bg: linear-gradient(45deg, #0b3d91, #521a9e);
+  --btn-hover-shadow: rgba(56, 141, 60, 0.6);
+  --modal-bg: #333;
+  --modal-shadow: rgba(0, 0, 0, 0.9);
+  --confirmation-bg: linear-gradient(45deg, #388e3c, #2e7d32);
+  --confirmation-shadow: rgba(30, 100, 30, 0.6);
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background: var(--bg-gradient);
+  min-height: 100vh;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Login specific styles */
+.user-logged-in .user-feature {
+  display: block;
+}
+
+.admin-logged-in .admin-feature {
+  display: block;
+}
+
+.user-history {
+  background: var(--card-bg);
+  border: 2px solid #4CAF50;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.my-bookings-btn {
+  background: linear-gradient(45deg, #4CAF50, #45a049) !important;
+}
+
+.admin-panel {
+  background: var(--card-bg);
+  border: 2px solid #ff6b6b;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+/* =============================================
+   2. HEADER & NAVIGATION
+   ============================================= */
+
+.header {
+  background: var(--header-bg);
+  backdrop-filter: blur(10px);
+  padding: 1rem 0;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  /* position: sticky; */
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: wrap;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: 2rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--navlink-color);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--navlink-hover);
+}
+
+.theme-toggle {
+  background: none;
+  border: 2px solid var(--link-color);
+  color: var(--link-color);
+  padding: 4px 8px;
+  border-radius: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.theme-toggle:hover {
+  background: var(--link-color);
+  color: white;
+}
+
+/* =============================================
+   3. HERO SECTION
+   ============================================= */
+
+.hero {
+  text-align: center;
+  padding: 4rem 0 2rem;
+  color: white;
+  position: relative;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.hero p {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* =============================================
+   4. MAIN CONTENT & SECTION STYLES
+   ============================================= */
+
+.main-content {
+  background: var(--card-bg);
+  margin: 2rem 0 4rem;
+  border-radius: 20px;
+  padding: 3rem 0;
+  box-shadow: var(--card-shadow);
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: var(--text-color);
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+/* =============================================
+   5. VEHICLE GRID & CARDS
+   ============================================= */
+
+.vehicles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.vehicle-card {
+  background: var(--card-bg);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+  border: 2px solid #667eea;
+  color: var(--text-color);
+}
+
+.vehicle-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  border-color: #4455aa;
+}
+
+.vehicle-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  border-bottom: 1px solid #ddd;
+}
+
+.vehicle-card:hover .vehicle-image {
+  transform: scale(1.05);
+}
+
+.vehicle-info {
+  padding: 1rem 1.5rem;
+}
+
+.vehicle-name {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 0.4rem;
+  color: var(--text-color);
+}
+
+.vehicle-type {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 70px;
+  padding: 0.3rem 1rem;
+  border-radius: 10000px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--link-color);
+  background: transparent;
+  border: 2px solid var(--link-color);
+  box-shadow: none;
+  white-space: nowrap;
+  text-overflow: clip;
+}
+
+.vehicle-price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #667eea;
+  margin-bottom: 0.2rem;
+  margin-top: 0.2rem;
+}
+
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* =============================================
+   6. BUTTONS (BOOK, CONFIRM, CANCEL)
+   ============================================= */
+
+.book-btn {
+  width: auto;
+  height: auto;
+  padding: 0.8rem 1rem;
+  background: var(--btn-bg);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  user-select: none;
+}
+
+.book-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--btn-hover-shadow);
+}
+
+.book-btn:active {
+  transform: translateY(0);
+}
+
+.book-btn:disabled {
+  background: #cccccc !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+  opacity: 0.6;
+}
+
+.login-required {
+  background: linear-gradient(45deg, #ff9800, #f57c00) !important;
+}
+
+.confirm-btn {
+  background: var(--btn-bg);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  height: 65px;
+  width: 250px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.confirm-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--btn-hover-shadow);
+}
+
+.cancel-btn {
+  background: var(--btn-bg);
+  color: white;
+  height: 65px;
+  width: 250px;
+  border: none;
+  margin-left: 20px;
+  padding: 1rem 2rem;
+  font-weight: bold;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.cancel-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--btn-hover-shadow);
+}
+
+/* =============================================
+   7. MODAL & FORM
+   ============================================= */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  backdrop-filter: blur(5px);
+  overflow-y: auto;
+  transition: opacity 0.3s ease;
+}
+
+.modal.active {
+  display: block;
+}
+
+.modal-content {
+  background-color: var(--modal-bg);
+  padding: 2rem;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 20px 60px var(--modal-shadow);
+  animation: modalSlideIn 0.3s ease;
+  color: var(--text-color);
+  margin: 5% auto 10%;
+  max-height: 80vh; 
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.close {
+  border: none;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  user-select: none;
+}
+
+.close:hover {
+  color: var(--link-color);
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background: var(--card-bg);
+  color: var(--text-color);
+  outline: none;
+}
+
+.form-group input:focus, .form-group select:focus {
+  border-color: var(--link-color);
+}
+
+/* --- City Select Dropdown --- */
+#city-select {
+  margin-bottom: 0.9rem;
+}
+
+.form-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 2rem;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><polygon fill='%23ddd' points='0,0 12,0 6,8'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 12px;
+  cursor: pointer;
+}
+
+.form-group select:focus {
+  border-color: var(--link-color);
+  box-shadow: 0 0 5px var(--link-color);
+}
+
+/* =============================================
+   8. CONFIRMATION MESSAGE & FOOTER
+   ============================================= */
+
+.confirmation {
+  display: none;
+  background: var(--confirmation-bg);
+  color: white;
+  padding: 2rem;
+  border-radius: 15px;
+  margin: 2rem 0;
+  text-align: center;
+  box-shadow: 0 5px 25px var(--confirmation-shadow);
+  animation: slideIn 0.5s ease;
+  user-select: none;
+}
+
+.confirmation h3 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.footer {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  text-align: center;
+  padding: 2rem 0;
+  margin-top: 2rem;
+}
+
+/* =============================================
+   9. ANIMATIONS
+   ============================================= */
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+/* =============================================
+   10. RESPONSIVE DESIGN
+   ============================================= */
+
+/* =============================================
+   11. MOBILE RESPONSIVE FIXES
+   ============================================= */
+
+   
+  @media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .logo {
+    font-size: 1.6rem;
+    margin: 0 0 6px 0;
+    align-self: flex-start;
+  }
+
+  /* Nav ko full width aur flex column */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  /* Nav links grid layout (aapka existing accha hai) */
+  .nav-links {
+    display: grid;
+    gap: 8px;
+    padding: 0 6px;
+    margin: 0;
+    list-style: none;
+    width: 100%;
+    justify-items: start;
+    align-items: start;
+  }
+
+  @media (max-width: 359px) {
+    .nav-links { grid-template-columns: repeat(1, 1fr); }
+  }
+  @media (min-width: 360px) and (max-width: 419px) {
+    .nav-links { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 420px) and (max-width: 768px) {
+    .nav-links { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .nav-links li { width: 100%; }
+
+  .nav-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 34px;     
+    padding: 4px 8px;        
+    border: 1px solid var(--link-color);
+    border-radius: 8px;
+    font-size: 0.86rem;  
+    color: var(--navlink-color);
+    background: transparent;
+    white-space: nowrap;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+ .nav-buttons {
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    padding: 0 6px;
+    margin-top: 8px;
+    justify-content: space-between; /* flex-start ki jagah 'space-between' */
+    align-items: center;
+  }
+   .theme-toggle,
+   #loginBtnHeader { 
+    display: block;
+    width: auto;
+    max-width: none; 
+    margin: 0; 
+    height: 38px;
+    font-size: 0.90rem;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    white-space: nowrap;
+  } 
+
+  /* Tiny screens adjustment */
+  @media (max-width: 360px) {
+    .nav-buttons {
+      gap: 8px;
+    }
+    
+    .theme-toggle,
+    #loginBtnHeader {
+      height: 36px;
+      padding: 6px 10px;
+      font-size: 0.82rem;
+    }
+  }
+
+  /* ensure modal and other panels don't overflow on mobile */
+  .modal-content { width: 96%; margin: 6% auto; }
+}
